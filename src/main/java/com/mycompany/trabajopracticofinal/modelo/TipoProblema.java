@@ -21,7 +21,7 @@ public class TipoProblema {
     private String descripcion;
     private LocalDate tiempoEstimado;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name= "incidente_id", referencedColumnName = "id")
     private Incidente incidente;
 }

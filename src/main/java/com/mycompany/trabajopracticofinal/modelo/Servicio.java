@@ -22,7 +22,7 @@ public class Servicio {
     private String tipoServicio;
     private String descripcion;
 
-    @ManyToMany (mappedBy = "cliente")
+    @ManyToMany (mappedBy = "servicios")
     private List <Cliente> clientes;
             
 }

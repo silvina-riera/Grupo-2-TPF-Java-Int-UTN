@@ -30,19 +30,19 @@ public class Incidente {
     private LocalDate fechaCierre;
     private int horaColchon;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name= "servicio_id", referencedColumnName = "id")
     private Servicio servicio;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name= "tecnico_id", referencedColumnName = "id")
     private Tecnico tecnico;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name= "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
 
-    @OneToMany (mappedBy = "tipo_problema")
+    @OneToMany (mappedBy = "incidente")
     private List<TipoProblema> listaProblemas;
 
     

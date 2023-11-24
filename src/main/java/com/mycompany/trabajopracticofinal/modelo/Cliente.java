@@ -27,14 +27,14 @@ public class Cliente extends Persona{
     private String telefono;
     private String correoElectronico;
 
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name= "mesa_ayuda_id", referencedColumnName = "id")
     private MesaAyuda atencion;
 
-    @OneToMany (mappedBy = "incidente")
+    @OneToMany (mappedBy = "cliente")
     private Set<Incidente> incidentes;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (
             name = "cliente_has_servicio",
             joinColumns = @JoinColumn(name = "cliente_id"),

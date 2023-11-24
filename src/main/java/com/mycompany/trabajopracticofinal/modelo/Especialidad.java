@@ -28,7 +28,7 @@ public class Especialidad {
     @JoinColumn(name= "especialidad_id", referencedColumnName = "id")
     Set<TipoProblema> listaProblemas;
 
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL)
     @JoinTable (
             name = "especialidad_has_tecnico",
             joinColumns = @JoinColumn(name = "especialidad_id"),
