@@ -1,5 +1,5 @@
 
-package com.mycompany.trabajopracticofinal.modelo;
+package modelos;
 
 
 public enum MedioNotificacionEnum {

@@ -1,5 +1,7 @@
 
-package com.mycompany.trabajopracticofinal.modelo.incidente;
+package estados;
+import modelos.EEstado;
+import modelos.Incidente;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Getter;
@@ -11,10 +13,12 @@ import lombok.Getter;
 
 public class EstadoResuelto implements IncidenciaEstado{
 
-  private String estado = "Resuelto";
-    @Override
-    public IncidenciaEstado cambiarEstado() {
-       return null;
+  private EEstado estado;
+   
+  @Override
+    public Incidente cambiarEstado(Incidente incidente) {
+        estado = EEstado.RESUELTO;
+        return incidente;
     }
 
     @Override
