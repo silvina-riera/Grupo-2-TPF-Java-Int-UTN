@@ -9,23 +9,41 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.AUTO;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Entity
+@Table (name = "incidente")
 public class Incidente {
+    @Id
+    @GeneratedValue(strategy=AUTO)
+    private int id;
+    private String descripcion;
+    private IncidenciaEstado estado = new EstadoEnProceso();
+    private int tiempoResolucion;
+    private LocalDate fechaCreacion;
+    private LocalDate fechaCierre;
+    private int horaColchon;
 
-private int id;
-private String descripcion;
-private IncidenciaEstado estado = new EstadoEnProceso();
-private int tiempoResolucion;
-private LocalDate fechaCreacion;
-private LocalDate fechaCierre;
-private int horaColchon;
-private Servicio servicio;
-private Tecnico tecnico;
-private Cliente cliente;
-private List<TipoProblema> listaProblemas;
+    @ManyToOne
+    @JoinColumn(name= "servicio_id", referencedColumnName = "id")
+    private Servicio servicio;
+
+    @ManyToOne
+    @JoinColumn(name= "tecnico_id", referencedColumnName = "id")
+    private Tecnico tecnico;
+
+    @ManyToOne
+    @JoinColumn(name= "cliente_id", referencedColumnName = "id")
+    private Cliente cliente;
+
+    @OneToMany (mappedBy = "tipo_problema")
+    private List<TipoProblema> listaProblemas;
 
     
 }
