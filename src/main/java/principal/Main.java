@@ -148,7 +148,7 @@ public class Main {
                 LocalDate fecha1 = LocalDate.parse("2023-11-24");
                 LocalDate fecha2 = LocalDate.parse("2023-11-25");
                 Tecnico tecnico = service.resueltosporFecha(EEstado.RESUELTO, fecha1, fecha2);
-                System.out.println("Tecnico cmás incidentes resueltos: " + tecnico);
+                System.out.println("Tecnico más incidentes resueltos: " + tecnico.getNombre() + " " + tecnico.getApellido());
                 break; 
                 case 0:
                     System.out.println("Fin del programa");
