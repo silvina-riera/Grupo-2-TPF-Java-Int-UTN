@@ -3,6 +3,7 @@ package utils;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import modelos.Cliente;
 import modelos.Especialidad;
@@ -13,12 +14,12 @@ import modelos.Servicio;
 import modelos.Tecnico;
 import modelos.TipoProblema;
 
-public class ObjetosUtilitarios {
+public class ObjetosUtilitarios1 {
     
     public static Cliente cliente(){
         Cliente cliente = new Cliente();
         Set<Servicio> servicios = new HashSet<>();
-        servicios.add(ObjetosUtilitarios.servicio());
+        servicios.add(ObjetosUtilitarios1.servicio());
         cliente.setId(1);
         cliente.setRazonSocial("UTN SRL");
         cliente.setCorreoElectronico("utn@gmail.com");
@@ -120,6 +121,7 @@ public class ObjetosUtilitarios {
     
     public static TipoProblema problema1(){
         TipoProblema problema = new TipoProblema();
+        problema.setId(1);
         problema.setDescripcion("Error dll de Tango");
         problema.setTiempoEstimado(48);
         return problema;
@@ -127,6 +129,7 @@ public class ObjetosUtilitarios {
     
      public static TipoProblema problema2(){
         TipoProblema problema = new TipoProblema();
+        problema.setId(2);
         problema.setDescripcion("Error registro windows");
         problema.setTiempoEstimado(24);
         return problema;
@@ -134,10 +137,16 @@ public class ObjetosUtilitarios {
      
      public static TipoProblema problema3(){
         TipoProblema problema = new TipoProblema();
+        problema.setId(3);
         problema.setDescripcion("Error instalacion Linux");
         problema.setTiempoEstimado(32);
         return problema;
     }
+     
+    public static List<TipoProblema> listaProblemas(TipoProblema problema1, TipoProblema problema2){
+        List<TipoProblema> listaProblemas = List.of(problema1, problema2);
+        return listaProblemas;
+    } 
      
      public static Incidente incidente1(){
          Incidente incidente = new  Incidente();

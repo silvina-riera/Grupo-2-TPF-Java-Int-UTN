@@ -8,10 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 
-@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,5 +37,11 @@ public class Cliente extends Persona implements Serializable{
     @JoinTable(name = "cliente_servicio", joinColumns = @JoinColumn(name = "fk_cliente"), 
             inverseJoinColumns = @JoinColumn(name = "fk_servicio"))
     private Set<Servicio> servicios;
+
+    @Override
+    public String toString() {
+        return "Cliente{" + "razonSocial=" + razonSocial + ", cuit=" + cuit + ", telefono=" + telefono + ", correoElectronico=" + correoElectronico + '}';
+    }
+    
     
 }

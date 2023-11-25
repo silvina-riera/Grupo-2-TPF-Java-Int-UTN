@@ -1,6 +1,7 @@
 
 package modelos;
 
+import estados.EstadoEnProceso;
 import estados.EstadoPendiente;
 import estados.EstadoResuelto;
 import java.io.Serializable;
@@ -58,9 +59,9 @@ public class Incidente implements Serializable {
         if (this.tecnico != null && this.tecnico.isDisponibilidad() == false){
             EstadoPendiente pendiente = new EstadoPendiente();
             pendiente.cambiarEstado(this);
-        }else if(this.tecnico != null && this.tecnico.isDisponibilidad() == true){
-            EstadoResuelto resuelto = new EstadoResuelto();
-            resuelto.cambiarEstado(this);
+        }else if(this.fechaCierre != null){
+            EstadoEnProceso enProceso = new EstadoEnProceso();
+            enProceso.cambiarEstado(this);
         }
         return this.estado;
     }

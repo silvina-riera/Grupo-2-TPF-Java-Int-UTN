@@ -31,5 +31,11 @@ public class Tecnico extends Persona implements Serializable{
     
     @OneToMany(mappedBy = "tecnico")        
     private Set<Incidente> incidentes;
+
+    @Override
+    public String toString() {
+        return "Tecnico{" + super.toString() + " disponibilidad=" + disponibilidad + ", notificacion=" + notificacion + '}';
+    }
+    
     
 }

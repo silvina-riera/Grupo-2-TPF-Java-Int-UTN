@@ -6,6 +6,8 @@ import modelos.Tecnico;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import modelos.EEstado;
+import modelos.Incidente;
 
 public class TecnicoRepository {
     
@@ -20,7 +22,6 @@ public class TecnicoRepository {
     
     public Tecnico findTecnicoPorId(int id){
         Tecnico encontrado = em.find(Tecnico.class, id);
-        System.out.println("Cliente encontrado: " + encontrado);
         return encontrado;
     }
     
@@ -37,13 +38,16 @@ public class TecnicoRepository {
         return tecnico;
     }
     
-    public List<Tecnico> obtenerResueltosPorFecha(LocalDate fecha1, LocalDate fecha2) {
-        String jpql ="SELECT t.nombre, t.apellido COUNT(i.id) AS cant_resueltos FROM Tecnico t " +
-                 "JOIN t.incidentes i WHERE i.estado = Resuelto AND i.fechaCierre BETWEEN :fecha1 AND :fecha2 " +
-                 "GROUP BY t.apellido ORDER BY cant_resueltos DESC";
-        List<Tecnico> tecnicos = em.createQuery(jpql, Tecnico.class)
+    /*
+     *TODO: probar la query. 
+    */
+    public List<Incidente> obtenerResueltosPorFecha(EEstado estado, LocalDate fecha1, LocalDate fecha2) {
+        String jpql ="SELECT i FROM Incidente i WHERE i.fechaCreacion>= :fecha1 AND i.fechaCierre <= :fecha2"
+                + " AND i.estado = :estado";        
+        List<Incidente> incidentes = em.createQuery(jpql, Incidente.class)
+        .setParameter("estado", EEstado.RESUELTO)
         .setParameter("fecha1", fecha1).setParameter("fecha2", fecha2).getResultList();
-        return tecnicos;
+        return incidentes;
     }
     
     public void updateTecnico(Tecnico tecnico){
