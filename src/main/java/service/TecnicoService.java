@@ -49,11 +49,11 @@ public class TecnicoService {
      * **************Metodo 1*******************
      */
     public Optional<Map.Entry<Tecnico, Long>> obtenerTecnicoConMasIncidentesResueltosUltimosNDias(int nDias) {
-        return cantidadIncidentesPorTecnico(nDias);
+        return maximoCantidadIncidente(tecnicoPorCantidadIncident(nDias));
 
     }
 
-    private Optional<Map.Entry<Tecnico, Long>> cantidadIncidentesPorTecnico(int nDias) {
+    private Map<Tecnico, Long> tecnicoPorCantidadIncident(int nDias) {
 
         //Obtengo un listado filtrado por dias de incidentes
         List<Incidente> incidentesFiltrados = servicioIncidente.listarPorXDias(nDias);
@@ -64,8 +64,7 @@ public class TecnicoService {
                 .filter(Objects::nonNull)
                 .collect(Collectors.groupingBy(Incidente::getTecnico, Collectors.counting())); // Filtra incidentes no nulos
 
-        //paso el map al metodo
-        return maximoCantidadIncidente(conteoIncidentesPorTecnico);
+        return conteoIncidentesPorTecnico;
 
     }
 
@@ -76,10 +75,40 @@ public class TecnicoService {
         return maxEntry;
 
     }
+
     /**
-     * **************Metodo 2*******************
+     * ***************Metodo 2*******************
      */
-    public List<Incidente> incidentesResueltosEspecialidadUltimosNDias(TecnicoService especialidad, int nDias) {
-     return null;    
+    public Optional<Map.Entry<Tecnico, Long>> tecnicoConMaximaCantidadDeIncidentesEnEspecialidad(String especialidad, int nDias) {
+        //Almacena la lista de los incidentses x dias y especialidad
+        List<Incidente> listadoEspecialidad = listarPorXDiasEspecialidad(especialidad, nDias);
+
+        //Almacena la coleccion con el conteo x especialidad
+        Map<Tecnico, Long> totalIncidentes = contarIncidentesPorTecnico(listadoEspecialidad);
+
+        //almacena el Tecnico con mayor incidencia
+        Optional<Map.Entry<Tecnico, Long>> maximoIncidente = tecnicoMaxCantidadIncidente(totalIncidentes);
+
+        return maximoIncidente;
+
     }
+
+    private List<Incidente> listarPorXDiasEspecialidad(String especialidad, int nDias) {
+        List<Incidente> resultado = servicioIncidente.listarPorXDias(nDias);
+        return resultado.stream()
+                .filter(incidente -> incidente.getTecnico().getListaEspecialidades().contains(especialidad))
+                .collect(Collectors.toList());
+    }
+
+    private Map<Tecnico, Long> contarIncidentesPorTecnico(List<Incidente> incidentes) {
+        return incidentes.stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.groupingBy(Incidente::getTecnico, Collectors.counting()));
+    }
+
+    private Optional<Map.Entry<Tecnico, Long>> tecnicoMaxCantidadIncidente(Map<Tecnico, Long> conteoIncidentesPorTecnico) {
+        return conteoIncidentesPorTecnico.entrySet().stream()
+                .max(Map.Entry.comparingByValue());
+    }
+
 }

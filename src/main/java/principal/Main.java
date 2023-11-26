@@ -168,14 +168,24 @@ public class Main {
         resultado.ifPresent(entry -> {
         Tecnico tecnicoConMasIncidentes = entry.getKey();
         Long cantidadIncidentes = entry.getValue();
-
+            
         System.out.println("Técnico con más incidentes: " +tecnicoConMasIncidentes.getNombre() +" " + tecnicoConMasIncidentes.getApellido());
         System.out.println("Cantidad de incidentes: " + cantidadIncidentes);
-            
-});
-     
-    
+           
         
-    }
-    
+});
+       
+     System.out.println("Metodo 2");
+     System.out.println("técnico con más incidentes resueltos por especialidad - sin probar por falta de datos");
+       Optional<Map.Entry<Tecnico, Long>> resultado2 =service.tecnicoConMaximaCantidadDeIncidentesEnEspecialidad(null, 100);
+       resultado2.ifPresent(entry -> {
+        Tecnico tecnicoConMasIncidentes = entry.getKey();
+        Long cantidadIncidentes = entry.getValue();
+            
+        System.out.println("Técnico con más incidentes: " +tecnicoConMasIncidentes.getNombre() +" " + tecnicoConMasIncidentes.getApellido());
+        System.out.println("Cantidad de incidentes: " + cantidadIncidentes);
+       });
+   
+             
+}
 }
