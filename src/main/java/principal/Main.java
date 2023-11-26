@@ -2,6 +2,8 @@
 package principal;
 
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import javax.persistence.EntityManager;
 import modelos.EEstado;
@@ -159,6 +161,21 @@ public class Main {
         } while (opcion != 0);
         
         em.close();
+       
+        //Prueba metodo 1
+        System.out.println("técnico con más incidentes resueltos");
+        Optional<Map.Entry<Tecnico, Long>> resultado = service.obtenerTecnicoConMasIncidentesResueltosUltimosNDias(80);
+        resultado.ifPresent(entry -> {
+        Tecnico tecnicoConMasIncidentes = entry.getKey();
+        Long cantidadIncidentes = entry.getValue();
+
+        System.out.println("Técnico con más incidentes: " +tecnicoConMasIncidentes.getNombre() +" " + tecnicoConMasIncidentes.getApellido());
+        System.out.println("Cantidad de incidentes: " + cantidadIncidentes);
+            
+});
+     
+    
+        
     }
     
 }
